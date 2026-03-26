@@ -2,6 +2,14 @@
 
 ## 2026-03-26
 
+### Drag & Drop Kart Taşıma
+- Kartlar sürükle-bırak ile farklı haftalara ve aylara taşınabiliyor
+- HTML5 Drag and Drop API kullanıldı (ek kütüphane yok)
+- Optimistic update: kart anında taşınır, hata olursa geri alınır
+- Bırakma alanı görsel geri bildirimi (highlight + "Buraya bırak" yazısı)
+- Taşıma işlemi aktivite loguna kaydediliyor
+- Grip ikonu hover'da görünüyor
+
 ### Lejant Pozisyonu Değişikliği
 - Lejant (kategori renkleri) sayfanın altından yukarıya taşındı
 - Yeni konum: takvim araç çubuğu ile takvim grid'i arasında

@@ -104,6 +104,29 @@ export default function App() {
     }
   }
 
+  const handleMoveCard = async (cardId: number, toMonth: number, toWeek: number) => {
+    if (!token || !user) return
+    const card = cards.find(c => c.id === cardId)
+    if (!card) return
+
+    // Optimistic update
+    setCards(prev => prev.map(c => c.id === cardId ? { ...c, month: toMonth, week: toWeek } : c))
+
+    try {
+      await api.updateCard(token, cardId, { month: toMonth, week: toWeek, updated_by: user.id })
+      await api.logActivity(token, {
+        card_id: cardId,
+        user_id: user.id,
+        user_name: user.name,
+        action: 'moved',
+        details: `"${card.title}" kartı taşındı`,
+      })
+    } catch (err) {
+      showToast(err instanceof Error ? err.message : 'Taşınamadı', 'error')
+      reloadCards() // Revert on failure
+    }
+  }
+
   const handleDeleteCard = async () => {
     if (!token || !deleteCard || !user) return
     try {
@@ -179,6 +202,7 @@ export default function App() {
             onCardEdit={card => setEditState({ card, isNew: false })}
             onCardDelete={setDeleteCard}
             onAddCard={(month, week) => setEditState({ card: { month, week }, isNew: true })}
+            onMoveCard={handleMoveCard}
           />
         </div>
 

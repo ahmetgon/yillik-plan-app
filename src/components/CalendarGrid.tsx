@@ -13,6 +13,7 @@ interface Props {
   onCardEdit: (card: Card) => void
   onCardDelete: (card: Card) => void
   onAddCard: (month: number, week: number) => void
+  onMoveCard: (cardId: number, toMonth: number, toWeek: number) => void
 }
 
 export function CalendarGrid({
@@ -26,6 +27,7 @@ export function CalendarGrid({
   onCardEdit,
   onCardDelete,
   onAddCard,
+  onMoveCard,
 }: Props) {
   const getMonths = (): number[] => {
     if (viewMode === 'year') return Array.from({ length: 12 }, (_, i) => i + 1)
@@ -35,22 +37,24 @@ export function CalendarGrid({
 
   const months = getMonths()
 
+  const monthProps = (m: number) => ({
+    key: m,
+    month: m,
+    cards,
+    categories,
+    canEdit,
+    onCardClick,
+    onCardEdit,
+    onCardDelete,
+    onAddCard,
+    onMoveCard,
+  })
+
   if (viewMode === 'year') {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {months.map(m => (
-          <MonthColumn
-            key={m}
-            month={m}
-            cards={cards}
-            categories={categories}
-            canEdit={canEdit}
-            compact
-            onCardClick={onCardClick}
-            onCardEdit={onCardEdit}
-            onCardDelete={onCardDelete}
-            onAddCard={onAddCard}
-          />
+          <MonthColumn {...monthProps(m)} compact />
         ))}
       </div>
     )
@@ -60,17 +64,7 @@ export function CalendarGrid({
     return (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {months.map(m => (
-          <MonthColumn
-            key={m}
-            month={m}
-            cards={cards}
-            categories={categories}
-            canEdit={canEdit}
-            onCardClick={onCardClick}
-            onCardEdit={onCardEdit}
-            onCardDelete={onCardDelete}
-            onAddCard={onAddCard}
-          />
+          <MonthColumn {...monthProps(m)} />
         ))}
       </div>
     )
@@ -79,16 +73,7 @@ export function CalendarGrid({
   // Single month view - wider layout
   return (
     <div className="max-w-2xl mx-auto">
-      <MonthColumn
-        month={selectedMonth}
-        cards={cards}
-        categories={categories}
-        canEdit={canEdit}
-        onCardClick={onCardClick}
-        onCardEdit={onCardEdit}
-        onCardDelete={onCardDelete}
-        onAddCard={onAddCard}
-      />
+      <MonthColumn {...monthProps(selectedMonth)} />
     </div>
   )
 }
