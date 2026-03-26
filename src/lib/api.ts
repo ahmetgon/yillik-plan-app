@@ -1,6 +1,6 @@
 import type { Card, Category, User, ActivityLog } from '../types'
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3070'
+const API_BASE = import.meta.env.VITE_API_URL || ''
 
 let _currentTenant = 'demo'
 
