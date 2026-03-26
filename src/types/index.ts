@@ -87,5 +87,5 @@ export const DEFAULT_CATEGORIES: Omit<Category, 'id' | 'tenant_id'>[] = [
   { name: 'Yeni eklenen özel gün önerileri', color: '#F97316', bg_color: '#FFEDD5', sort_order: 2 },
   { name: 'Mevcut iç iletişim ve İK içerikleri', color: '#EF4444', bg_color: '#FEE2E2', sort_order: 3 },
   { name: 'İç iletişime konu edilebilir olanlar', color: '#3B82F6', bg_color: '#DBEAFE', sort_order: 4 },
-  { name: 'Rutin ve Operasyonel İletişimler', color: '#6B7280', bg_color: '#F3F4F6', sort_order: 5 },
+  { name: 'Rutin ve operasyonel iletişimler', color: '#6B7280', bg_color: '#F3F4F6', sort_order: 5 },
 ]

@@ -144,7 +144,7 @@ function initializeDb(db: Database.Database, slug: string, name?: string, year?:
     insert.run('Yeni eklenen özel gün önerileri', '#F97316', '#FFEDD5', 2)
     insert.run('Mevcut iç iletişim ve İK içerikleri', '#EF4444', '#FEE2E2', 3)
     insert.run('İç iletişime konu edilebilir olanlar', '#3B82F6', '#DBEAFE', 4)
-    insert.run('Rutin ve Operasyonel İletişimler', '#6B7280', '#F3F4F6', 5)
+    insert.run('Rutin ve operasyonel iletişimler', '#6B7280', '#F3F4F6', 5)
   }
 
   // Fix Turkish characters in existing categories
@@ -153,7 +153,8 @@ function initializeDb(db: Database.Database, slug: string, name?: string, year?:
     ['Yeni eklenen ozel gun onerileri', 'Yeni eklenen özel gün önerileri'],
     ['Mevcut ic iletisim ve IK icerikleri', 'Mevcut iç iletişim ve İK içerikleri'],
     ['Ic iletisime konu edilebilir olanlar', 'İç iletişime konu edilebilir olanlar'],
-    ['Rutin ve Operasyonel Iletisimler', 'Rutin ve Operasyonel İletişimler'],
+    ['Rutin ve Operasyonel Iletisimler', 'Rutin ve operasyonel iletişimler'],
+    ['Rutin ve Operasyonel İletişimler', 'Rutin ve operasyonel iletişimler'],
   ]
   const updateCat = db.prepare('UPDATE categories SET name = ? WHERE name = ?')
   for (const [oldName, newName] of turkishFixes) {
