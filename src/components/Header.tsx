@@ -1,4 +1,4 @@
-import { LogOut, Settings, User } from 'lucide-react'
+import { Calendar, LogOut, Settings, User } from 'lucide-react'
 import type { User as UserType, Tenant } from '../types'
 
 interface Props {
@@ -14,6 +14,9 @@ export function Header({ tenant, user, isAdmin, onLogout, onSettingsClick }: Pro
     <header className="bg-navy text-white shadow-lg">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center">
+            <Calendar size={20} className="text-primary-light" />
+          </div>
           <div>
             <h1 className="text-base font-bold font-[family-name:var(--font-heading)] leading-tight">
               {tenant?.name || 'Yıllık Plan'} <span className="text-white/40 font-normal">x</span> Rhino Runner
