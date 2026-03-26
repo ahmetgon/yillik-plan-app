@@ -21,7 +21,7 @@ export function Header({ tenant, user, isAdmin, onLogout, onSettingsClick }: Pro
             <h1 className="text-base font-bold font-[family-name:var(--font-heading)] leading-tight">
               {tenant?.name || 'Yıllık Plan'} <span className="text-white/40 font-normal">x</span> Rhino Runner
             </h1>
-            <p className="text-xs text-white/50">{tenant?.year || new Date().getFullYear()} Yıllık İletişim Takvimi</p>
+            <p className="text-xs text-white/50">Yıllık İletişim Takvimi</p>
           </div>
         </div>
 
