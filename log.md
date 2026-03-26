@@ -2,6 +2,20 @@
 
 ## 2026-03-26
 
+### Path-Based Routing & Admin Dashboard
+- React Router eklendi: `/` → Admin Dashboard, `/:slug` → Takvim
+- Ana sayfa artık marka kartları listesi (admin için)
+- Marka kartına tıklayınca `/slug` takvim sayfasına gidiyor
+- Kullanıcı yönetimi tablo formatında dashboard'da
+- Şifre değiştirme dashboard'da
+- Subdomain yerine path-based multi-tenant mimari
+
+### Yıl Bazlı Kart Sistemi
+- Cards tablosuna `year` kolonu eklendi
+- Yıl değiştirince o yılın kartları yükleniyor
+- Kart oluşturmada seçili yıl otomatik atanıyor
+- Mevcut veritabanları için migration (year kolonu ekleniyor)
+
 ### Header/Footer Düzenleme
 - Header'dan Rhino Runner logosu kaldırıldı
 - Footer koyu arka plan (navy) ile alt kenara sabitlendi

@@ -2,19 +2,20 @@ import type { Card, Category, User, ActivityLog } from '../types'
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3070'
 
-function getTenantSlug(): string {
-  const hostname = window.location.hostname
-  const parts = hostname.split('.')
-  if (parts.length >= 4 && parts[1] === 'yillikplan') {
-    return parts[0]
-  }
-  return import.meta.env.VITE_TENANT_SLUG || 'demo'
+let _currentTenant = 'demo'
+
+export function setCurrentTenant(slug: string) {
+  _currentTenant = slug
+}
+
+export function getCurrentTenant(): string {
+  return _currentTenant
 }
 
 function headers(token?: string | null): HeadersInit {
   const h: HeadersInit = {
     'Content-Type': 'application/json',
-    'X-Tenant': getTenantSlug(),
+    'X-Tenant': _currentTenant,
   }
   if (token) h['Authorization'] = `Bearer ${token}`
   return h
@@ -85,10 +86,23 @@ export async function getUsers(token: string): Promise<User[]> {
 
 export async function createUser(
   token: string,
-  data: { name: string; email: string; password: string; role: string }
+  data: { name: string; email: string; password: string; role: string; tenants?: string[] }
 ): Promise<User> {
   const res = await fetch(`${API_BASE}/api/users`, {
     method: 'POST',
+    headers: headers(token),
+    body: JSON.stringify(data),
+  })
+  return handleRes(res)
+}
+
+export async function updateUser(
+  token: string,
+  userId: number,
+  data: { tenants?: string[] }
+): Promise<User> {
+  const res = await fetch(`${API_BASE}/api/users/${userId}`, {
+    method: 'PATCH',
     headers: headers(token),
     body: JSON.stringify(data),
   })
@@ -111,8 +125,9 @@ export async function getCategories(): Promise<Category[]> {
 }
 
 // ===== CARDS =====
-export async function getCards(): Promise<Card[]> {
-  const res = await fetch(`${API_BASE}/api/cards`, { headers: headers() })
+export async function getCards(year?: number): Promise<Card[]> {
+  const url = year ? `${API_BASE}/api/cards?year=${year}` : `${API_BASE}/api/cards`
+  const res = await fetch(url, { headers: headers() })
   if (!res.ok) return []
   return res.json()
 }

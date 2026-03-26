@@ -6,6 +6,7 @@ export interface User {
   name: string
   email: string
   role: Role
+  tenants: string[]
   created_at: string
 }
 
@@ -30,6 +31,7 @@ export interface Category {
 export interface Card {
   id: number
   tenant_id: number
+  year: number
   month: number
   week: number
   title: string
