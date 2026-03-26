@@ -140,11 +140,24 @@ function initializeDb(db: Database.Database, slug: string, name?: string, year?:
   const catCount = (db.prepare('SELECT COUNT(*) as c FROM categories').get() as { c: number }).c
   if (catCount === 0) {
     const insert = db.prepare('INSERT INTO categories (name, color, bg_color, sort_order) VALUES (?, ?, ?, ?)')
-    insert.run('Detaylandirilmasi gereken genel baslik', '#10B981', '#D1FAE5', 1)
-    insert.run('Yeni eklenen ozel gun onerileri', '#F97316', '#FFEDD5', 2)
-    insert.run('Mevcut ic iletisim ve IK icerikleri', '#EF4444', '#FEE2E2', 3)
-    insert.run('Ic iletisime konu edilebilir olanlar', '#3B82F6', '#DBEAFE', 4)
-    insert.run('Rutin ve Operasyonel Iletisimler', '#6B7280', '#F3F4F6', 5)
+    insert.run('Detaylandırılması gereken genel başlık', '#10B981', '#D1FAE5', 1)
+    insert.run('Yeni eklenen özel gün önerileri', '#F97316', '#FFEDD5', 2)
+    insert.run('Mevcut iç iletişim ve İK içerikleri', '#EF4444', '#FEE2E2', 3)
+    insert.run('İç iletişime konu edilebilir olanlar', '#3B82F6', '#DBEAFE', 4)
+    insert.run('Rutin ve Operasyonel İletişimler', '#6B7280', '#F3F4F6', 5)
+  }
+
+  // Fix Turkish characters in existing categories
+  const turkishFixes: [string, string][] = [
+    ['Detaylandirilmasi gereken genel baslik', 'Detaylandırılması gereken genel başlık'],
+    ['Yeni eklenen ozel gun onerileri', 'Yeni eklenen özel gün önerileri'],
+    ['Mevcut ic iletisim ve IK icerikleri', 'Mevcut iç iletişim ve İK içerikleri'],
+    ['Ic iletisime konu edilebilir olanlar', 'İç iletişime konu edilebilir olanlar'],
+    ['Rutin ve Operasyonel Iletisimler', 'Rutin ve Operasyonel İletişimler'],
+  ]
+  const updateCat = db.prepare('UPDATE categories SET name = ? WHERE name = ?')
+  for (const [oldName, newName] of turkishFixes) {
+    updateCat.run(newName, oldName)
   }
 
   // Seed admin user if no users exist

@@ -2,6 +2,15 @@
 
 ## 2026-03-26
 
+### Header/Footer Düzenleme
+- Header'dan Rhino Runner logosu kaldırıldı
+- Footer koyu arka plan (navy) ile alt kenara sabitlendi
+- Footer metni: "Created by" + Rhino Runner logo
+
+### Kategori Türkçe Karakter Düzeltmesi
+- server/db.ts seed verilerinde Türkçe karakterler düzeltildi
+- Mevcut veritabanlarındaki eski kayıtlar otomatik güncelleniyor (migration)
+
 ### Drag & Drop Kart Taşıma
 - Kartlar sürükle-bırak ile farklı haftalara ve aylara taşınabiliyor
 - HTML5 Drag and Drop API kullanıldı (ek kütüphane yok)

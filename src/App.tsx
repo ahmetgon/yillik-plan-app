@@ -167,7 +167,7 @@ export default function App() {
   const tenantForHeader = tenantMeta ? { id: 0, slug: tenantMeta.slug, name: tenantMeta.name, year: tenantMeta.year, logo_url: null, created_at: '' } : null
 
   return (
-    <div className="min-h-screen bg-surface">
+    <div className="min-h-screen bg-surface flex flex-col">
       <Header
         tenant={tenantForHeader}
         user={user}
@@ -176,7 +176,7 @@ export default function App() {
         onSettingsClick={() => setShowAdmin(true)}
       />
 
-      <main className="max-w-[1440px] mx-auto px-4 sm:px-6 py-5">
+      <main className="flex-1 max-w-[1440px] mx-auto px-4 sm:px-6 py-5 w-full">
         <CalendarToolbar
           viewMode={viewMode}
           selectedQuarter={selectedQuarter}
@@ -208,14 +208,14 @@ export default function App() {
 
       </main>
 
-      <footer className="border-t border-border bg-surface-alt py-4 mt-8">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 flex items-center justify-center gap-2 text-xs text-text-muted">
-          <span>Geliştiren</span>
+      <footer className="bg-navy py-3">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 flex items-center justify-center gap-2 text-xs text-white/40">
+          <span>Created by</span>
           <a href="https://rhinorunner.com" target="_blank" rel="noopener noreferrer">
             <img
               src="https://rhinorunner.com/_next/image?url=%2Fimages%2Flogo-for-dark.png&w=640&q=75"
               alt="Rhino Runner"
-              className="h-5 opacity-60 hover:opacity-100 transition-opacity"
+              className="h-4 opacity-70 hover:opacity-100 transition-opacity"
             />
           </a>
         </div>

@@ -14,14 +14,9 @@ export function Header({ tenant, user, isAdmin, onLogout, onSettingsClick }: Pro
     <header className="bg-navy text-white shadow-lg">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img
-            src="https://rhinorunner.com/_next/image?url=%2Fimages%2Flogo-for-dark.png&w=640&q=75"
-            alt="Rhino Runner"
-            className="h-8"
-          />
           <div>
             <h1 className="text-base font-bold font-[family-name:var(--font-heading)] leading-tight">
-              {tenant?.name || 'Yıllık Plan'} <span className="text-white/40 font-normal">x</span> Rhino Runner
+              {tenant?.name || 'Yıllık Plan'}
             </h1>
             <p className="text-xs text-white/50">{tenant?.year || new Date().getFullYear()} Yıllık İletişim Takvimi</p>
           </div>
