@@ -45,7 +45,7 @@ export function AdminPanel({ token, currentUser, onClose, onToast }: Props) {
       const data = await getUsers(token)
       setUsers(data)
     } catch {
-      onToast('Kullanicilar yuklenemedi', 'error')
+      onToast('Kullanıcılar yüklenemedi', 'error')
     }
   }
 
@@ -54,7 +54,7 @@ export function AdminPanel({ token, currentUser, onClose, onToast }: Props) {
       const data = await getTenants()
       setTenants(data)
     } catch {
-      onToast('Markalar yuklenemedi', 'error')
+      onToast('Markalar yüklenemedi', 'error')
     }
   }
 
@@ -64,12 +64,12 @@ export function AdminPanel({ token, currentUser, onClose, onToast }: Props) {
     setSaving(true)
     try {
       await createTenant(token, brandForm)
-      onToast(`"${brandForm.name}" markasi eklendi`, 'success')
+      onToast(`"${brandForm.name}" markası eklendi`, 'success')
       setBrandForm({ name: '', slug: '', year: new Date().getFullYear() })
       setShowBrandForm(false)
       loadTenants()
     } catch (err) {
-      onToast(err instanceof Error ? err.message : 'Marka olusturulamadi', 'error')
+      onToast(err instanceof Error ? err.message : 'Marka oluşturulamadı', 'error')
     } finally {
       setSaving(false)
     }
@@ -91,12 +91,12 @@ export function AdminPanel({ token, currentUser, onClose, onToast }: Props) {
     setSaving(true)
     try {
       await createUser(token, userForm)
-      onToast(`${userForm.name} basariyla eklendi`, 'success')
+      onToast(`${userForm.name} başarıyla eklendi`, 'success')
       setUserForm({ name: '', email: '', password: '', role: 'editor' })
       setShowUserForm(false)
       loadUsers()
     } catch (err) {
-      onToast(err instanceof Error ? err.message : 'Hata olustu', 'error')
+      onToast(err instanceof Error ? err.message : 'Hata oluştu', 'error')
     } finally {
       setSaving(false)
     }
@@ -112,27 +112,27 @@ export function AdminPanel({ token, currentUser, onClose, onToast }: Props) {
       onToast(`${user.name} silindi`, 'success')
       loadUsers()
     } catch {
-      onToast('Kullanici silinemedi', 'error')
+      onToast('Kullanıcı silinemedi', 'error')
     }
   }
 
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault()
     if (pwForm.newPassword !== pwForm.confirmPassword) {
-      onToast('Sifreler eslesmiyor', 'error')
+      onToast('Şifreler eşleşmiyor', 'error')
       return
     }
     if (pwForm.newPassword.length < 6) {
-      onToast('Sifre en az 6 karakter olmali', 'error')
+      onToast('Şifre en az 6 karakter olmalı', 'error')
       return
     }
     setSaving(true)
     try {
       await changePassword(token, currentUser.id, pwForm.oldPassword, pwForm.newPassword)
-      onToast('Sifre basariyla degistirildi', 'success')
+      onToast('Şifre başarıyla değiştirildi', 'success')
       setPwForm({ oldPassword: '', newPassword: '', confirmPassword: '' })
     } catch {
-      onToast('Sifre degistirilemedi', 'error')
+      onToast('Şifre değiştirilemedi', 'error')
     } finally {
       setSaving(false)
     }
@@ -153,7 +153,7 @@ export function AdminPanel({ token, currentUser, onClose, onToast }: Props) {
         <div className="flex items-center justify-between p-5 border-b border-border">
           <h2 className="text-base font-bold text-text font-[family-name:var(--font-heading)] flex items-center gap-2">
             <Shield size={18} className="text-primary" />
-            Yonetim Paneli
+            Yönetim Paneli
           </h2>
           <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-surface-alt text-text-muted hover:text-text">
             <X size={18} />
@@ -164,8 +164,8 @@ export function AdminPanel({ token, currentUser, onClose, onToast }: Props) {
         <div className="flex border-b border-border px-5">
           {([
             { key: 'brands' as Tab, icon: Building2, label: 'Markalar' },
-            { key: 'users' as Tab, icon: Users, label: 'Kullanicilar' },
-            { key: 'password' as Tab, icon: Key, label: 'Sifre Degistir' },
+            { key: 'users' as Tab, icon: Users, label: 'Kullanıcılar' },
+            { key: 'password' as Tab, icon: Key, label: 'Şifre Değiştir' },
           ]).map(({ key, icon: Icon, label }) => (
             <button
               key={key}
@@ -195,7 +195,7 @@ export function AdminPanel({ token, currentUser, onClose, onToast }: Props) {
               {showBrandForm && (
                 <form onSubmit={handleCreateBrand} className="bg-surface-alt rounded-lg p-4 flex flex-col gap-3 border border-border">
                   <div>
-                    <label className="block text-xs font-medium text-text-secondary mb-1">Marka Adi</label>
+                    <label className="block text-xs font-medium text-text-secondary mb-1">Marka Adı</label>
                     <input
                       type="text"
                       value={brandForm.name}
@@ -203,7 +203,7 @@ export function AdminPanel({ token, currentUser, onClose, onToast }: Props) {
                         const name = e.target.value
                         setBrandForm(p => ({ ...p, name, slug: slugify(name) }))
                       }}
-                      placeholder="Ornek Sirket A.S."
+                      placeholder="Örnek Şirket A.Ş."
                       required
                       className="w-full px-3 py-2 bg-white border border-border rounded-lg text-sm outline-none focus:border-primary"
                     />
@@ -224,7 +224,7 @@ export function AdminPanel({ token, currentUser, onClose, onToast }: Props) {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-text-secondary mb-1">Yil</label>
+                    <label className="block text-xs font-medium text-text-secondary mb-1">Yıl</label>
                     <input
                       type="number"
                       value={brandForm.year}
@@ -235,9 +235,9 @@ export function AdminPanel({ token, currentUser, onClose, onToast }: Props) {
                     />
                   </div>
                   <div className="flex gap-2 justify-end">
-                    <button type="button" onClick={() => setShowBrandForm(false)} className="px-3 py-1.5 text-xs text-text-secondary">Vazgec</button>
+                    <button type="button" onClick={() => setShowBrandForm(false)} className="px-3 py-1.5 text-xs text-text-secondary">Vazgeç</button>
                     <button type="submit" disabled={saving} className="px-3 py-1.5 text-xs font-medium text-white bg-primary rounded-lg hover:bg-primary-dark disabled:opacity-50">
-                      {saving ? 'Ekleniyor...' : 'Olustur'}
+                      {saving ? 'Ekleniyor...' : 'Oluştur'}
                     </button>
                   </div>
                 </form>
@@ -279,7 +279,7 @@ export function AdminPanel({ token, currentUser, onClose, onToast }: Props) {
                   </div>
                 ))}
                 {tenants.length === 0 && (
-                  <p className="text-sm text-text-muted text-center py-4">Henuz marka eklenmemis.</p>
+                  <p className="text-sm text-text-muted text-center py-4">Henüz marka eklenmemiş.</p>
                 )}
               </div>
             </div>
@@ -292,21 +292,21 @@ export function AdminPanel({ token, currentUser, onClose, onToast }: Props) {
                 onClick={() => setShowUserForm(!showUserForm)}
                 className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-primary bg-primary/5 rounded-lg hover:bg-primary/10 transition-colors self-start"
               >
-                <UserPlus size={14} /> Yeni Kullanici Ekle
+                <UserPlus size={14} /> Yeni Kullanıcı Ekle
               </button>
 
               {showUserForm && (
                 <form onSubmit={handleCreateUser} className="bg-surface-alt rounded-lg p-4 flex flex-col gap-3 border border-border">
                   <input type="text" value={userForm.name} onChange={e => setUserForm(p => ({ ...p, name: e.target.value }))} placeholder="Ad Soyad" required className="w-full px-3 py-2 bg-white border border-border rounded-lg text-sm outline-none focus:border-primary" />
                   <input type="email" value={userForm.email} onChange={e => setUserForm(p => ({ ...p, email: e.target.value }))} placeholder="Email" required className="w-full px-3 py-2 bg-white border border-border rounded-lg text-sm outline-none focus:border-primary" />
-                  <input type="password" value={userForm.password} onChange={e => setUserForm(p => ({ ...p, password: e.target.value }))} placeholder="Sifre (min. 6 karakter)" required minLength={6} className="w-full px-3 py-2 bg-white border border-border rounded-lg text-sm outline-none focus:border-primary" />
+                  <input type="password" value={userForm.password} onChange={e => setUserForm(p => ({ ...p, password: e.target.value }))} placeholder="Şifre (min. 6 karakter)" required minLength={6} className="w-full px-3 py-2 bg-white border border-border rounded-lg text-sm outline-none focus:border-primary" />
                   <select value={userForm.role} onChange={e => setUserForm(p => ({ ...p, role: e.target.value as Role }))} className="w-full px-3 py-2 bg-white border border-border rounded-lg text-sm outline-none focus:border-primary">
                     <option value="admin">Admin</option>
                     <option value="editor">Editor</option>
                     <option value="viewer">Viewer</option>
                   </select>
                   <div className="flex gap-2 justify-end">
-                    <button type="button" onClick={() => setShowUserForm(false)} className="px-3 py-1.5 text-xs text-text-secondary">Vazgec</button>
+                    <button type="button" onClick={() => setShowUserForm(false)} className="px-3 py-1.5 text-xs text-text-secondary">Vazgeç</button>
                     <button type="submit" disabled={saving} className="px-3 py-1.5 text-xs font-medium text-white bg-primary rounded-lg hover:bg-primary-dark disabled:opacity-50">
                       {saving ? 'Ekleniyor...' : 'Ekle'}
                     </button>
@@ -346,19 +346,19 @@ export function AdminPanel({ token, currentUser, onClose, onToast }: Props) {
           {tab === 'password' && (
             <form onSubmit={handleChangePassword} className="flex flex-col gap-4 max-w-sm">
               <div>
-                <label className="block text-xs font-medium text-text-secondary mb-1.5">Mevcut Sifre</label>
+                <label className="block text-xs font-medium text-text-secondary mb-1.5">Mevcut Şifre</label>
                 <input type="password" value={pwForm.oldPassword} onChange={e => setPwForm(p => ({ ...p, oldPassword: e.target.value }))} required className="w-full px-3 py-2.5 bg-surface-alt border border-border rounded-lg text-sm outline-none focus:border-primary" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-text-secondary mb-1.5">Yeni Sifre</label>
+                <label className="block text-xs font-medium text-text-secondary mb-1.5">Yeni Şifre</label>
                 <input type="password" value={pwForm.newPassword} onChange={e => setPwForm(p => ({ ...p, newPassword: e.target.value }))} required minLength={6} className="w-full px-3 py-2.5 bg-surface-alt border border-border rounded-lg text-sm outline-none focus:border-primary" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-text-secondary mb-1.5">Yeni Sifre (Tekrar)</label>
+                <label className="block text-xs font-medium text-text-secondary mb-1.5">Yeni Şifre (Tekrar)</label>
                 <input type="password" value={pwForm.confirmPassword} onChange={e => setPwForm(p => ({ ...p, confirmPassword: e.target.value }))} required minLength={6} className="w-full px-3 py-2.5 bg-surface-alt border border-border rounded-lg text-sm outline-none focus:border-primary" />
               </div>
               <button type="submit" disabled={saving} className="self-start px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-dark disabled:opacity-50">
-                {saving ? 'Kaydediliyor...' : 'Sifreyi Degistir'}
+                {saving ? 'Kaydediliyor...' : 'Şifreyi Değiştir'}
               </button>
             </form>
           )}

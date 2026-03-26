@@ -1,3 +1,4 @@
+import { ChevronDown } from 'lucide-react'
 import type { ViewMode, Quarter } from '../types'
 import { QUARTER_LABELS, MONTHS_TR } from '../types'
 
@@ -5,23 +6,29 @@ interface Props {
   viewMode: ViewMode
   selectedQuarter: Quarter
   selectedMonth: number
+  selectedYear: number
   onViewModeChange: (mode: ViewMode) => void
   onQuarterChange: (q: Quarter) => void
   onMonthChange: (m: number) => void
+  onYearChange: (y: number) => void
 }
+
+const YEARS = Array.from({ length: 7 }, (_, i) => 2024 + i) // 2024-2030
 
 export function CalendarToolbar({
   viewMode,
   selectedQuarter,
   selectedMonth,
+  selectedYear,
   onViewModeChange,
   onQuarterChange,
   onMonthChange,
+  onYearChange,
 }: Props) {
   return (
     <div className="flex flex-col gap-3 sm:gap-4">
-      {/* View Mode Toggle */}
-      <div className="flex items-center gap-2 flex-wrap">
+      {/* Top Row: View Mode + Year Selector */}
+      <div className="flex items-center gap-3 flex-wrap">
         <div className="flex bg-surface-alt rounded-lg p-0.5 border border-border">
           {(['year', 'quarter', 'month'] as ViewMode[]).map(mode => (
             <button
@@ -33,9 +40,23 @@ export function CalendarToolbar({
                   : 'text-text-secondary hover:text-text'
               }`}
             >
-              {mode === 'year' ? 'Tum Yil' : mode === 'quarter' ? 'Quarter' : 'Ay'}
+              {mode === 'year' ? 'Tüm Yıl' : mode === 'quarter' ? 'Quarter' : 'Ay'}
             </button>
           ))}
+        </div>
+
+        {/* Year Selector */}
+        <div className="relative">
+          <select
+            value={selectedYear}
+            onChange={e => onYearChange(Number(e.target.value))}
+            className="appearance-none bg-white border border-border rounded-lg px-3 py-1.5 pr-8 text-xs font-semibold text-text cursor-pointer hover:border-primary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+          >
+            {YEARS.map(y => (
+              <option key={y} value={y}>{y}</option>
+            ))}
+          </select>
+          <ChevronDown size={14} className="absolute right-2 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
         </div>
       </div>
 

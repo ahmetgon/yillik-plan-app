@@ -31,6 +31,7 @@ export default function App() {
   const currentQuarter = (Math.ceil((new Date().getMonth() + 1) / 3)) as Quarter
   const [selectedQuarter, setSelectedQuarter] = useState<Quarter>(currentQuarter)
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1)
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
 
   // Modal state
   const [viewCard, setViewCard] = useState<Card | null>(null)
@@ -67,7 +68,7 @@ export default function App() {
     try {
       await login(email, password)
     } catch (err) {
-      setLoginError(err instanceof Error ? err.message : 'Giris basarisiz')
+      setLoginError(err instanceof Error ? err.message : 'Giriş başarısız')
     }
   }
 
@@ -82,9 +83,9 @@ export default function App() {
           user_id: user.id,
           user_name: user.name,
           action: 'created',
-          details: `"${data.title}" karti olusturuldu`,
+          details: `"${data.title}" kartı oluşturuldu`,
         })
-        showToast('Kart basariyla eklendi', 'success')
+        showToast('Kart başarıyla eklendi', 'success')
       } else if (editState?.card?.id) {
         await api.updateCard(token, editState.card.id, { ...data, updated_by: user.id })
         await api.logActivity(token, {
@@ -92,14 +93,14 @@ export default function App() {
           user_id: user.id,
           user_name: user.name,
           action: 'updated',
-          details: `"${data.title}" karti guncellendi`,
+          details: `"${data.title}" kartı güncellendi`,
         })
-        showToast('Kart guncellendi', 'success')
+        showToast('Kart güncellendi', 'success')
       }
       setEditState(null)
       reloadCards()
     } catch (err) {
-      showToast(err instanceof Error ? err.message : 'Hata olustu', 'error')
+      showToast(err instanceof Error ? err.message : 'Hata oluştu', 'error')
     }
   }
 
@@ -111,7 +112,7 @@ export default function App() {
         user_id: user.id,
         user_name: user.name,
         action: 'deleted',
-        details: `"${deleteCard.title}" karti silindi`,
+        details: `"${deleteCard.title}" kartı silindi`,
       })
       await api.deleteCard(token, deleteCard.id)
       showToast('Kart silindi', 'success')
@@ -157,10 +158,14 @@ export default function App() {
           viewMode={viewMode}
           selectedQuarter={selectedQuarter}
           selectedMonth={selectedMonth}
+          selectedYear={selectedYear}
           onViewModeChange={setViewMode}
           onQuarterChange={setSelectedQuarter}
           onMonthChange={setSelectedMonth}
+          onYearChange={setSelectedYear}
         />
+
+        <Legend categories={categories} />
 
         <div className="mt-4">
           <CalendarGrid
@@ -177,8 +182,20 @@ export default function App() {
           />
         </div>
 
-        <Legend categories={categories} />
       </main>
+
+      <footer className="border-t border-border bg-surface-alt py-4 mt-8">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 flex items-center justify-center gap-2 text-xs text-text-muted">
+          <span>Geliştiren</span>
+          <a href="https://rhinorunner.com" target="_blank" rel="noopener noreferrer">
+            <img
+              src="https://rhinorunner.com/_next/image?url=%2Fimages%2Flogo-for-dark.png&w=640&q=75"
+              alt="Rhino Runner"
+              className="h-5 opacity-60 hover:opacity-100 transition-opacity"
+            />
+          </a>
+        </div>
+      </footer>
 
       {viewCard && (
         <ViewModal
@@ -209,8 +226,8 @@ export default function App() {
 
       {deleteCard && (
         <ConfirmDialog
-          title="Karti Sil"
-          message={`"${deleteCard.title}" kartini silmek istediginize emin misiniz?`}
+          title="Kartı Sil"
+          message={`"${deleteCard.title}" kartını silmek istediğinize emin misiniz?`}
           onConfirm={handleDeleteCard}
           onCancel={() => setDeleteCard(null)}
         />

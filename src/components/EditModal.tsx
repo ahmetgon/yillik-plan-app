@@ -54,7 +54,7 @@ export function EditModal({ card, categories, isNew, onSave, onClose }: Props) {
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-border">
           <h2 className="text-base font-bold text-text font-[family-name:var(--font-heading)]">
-            {isNew ? 'Yeni Kart Ekle' : 'Karti Duzenle'}
+            {isNew ? 'Yeni Kart Ekle' : 'Kartı Düzenle'}
           </h2>
           <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-surface-alt text-text-muted hover:text-text transition-colors">
             <X size={18} />
@@ -65,14 +65,14 @@ export function EditModal({ card, categories, isNew, onSave, onClose }: Props) {
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-5 flex flex-col gap-4">
           {/* Title */}
           <div>
-            <label className="block text-xs font-medium text-text-secondary mb-1.5">Baslik *</label>
+            <label className="block text-xs font-medium text-text-secondary mb-1.5">Başlık *</label>
             <input
               type="text"
               value={form.title}
               onChange={e => setForm(p => ({ ...p, title: e.target.value }))}
               required
               className="w-full px-3 py-2.5 bg-surface-alt border border-border rounded-lg text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
-              placeholder="Kart basligini girin..."
+              placeholder="Kart başlığını girin..."
             />
           </div>
 
@@ -113,7 +113,7 @@ export function EditModal({ card, categories, isNew, onSave, onClose }: Props) {
                 onChange={e => setForm(p => ({ ...p, category_id: e.target.value ? Number(e.target.value) : null }))}
                 className="w-full px-3 py-2.5 bg-surface-alt border border-border rounded-lg text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 appearance-none"
               >
-                <option value="">Kategori secin...</option>
+                <option value="">Kategori seçin...</option>
                 {categories.map(cat => (
                   <option key={cat.id} value={cat.id}>{cat.name}</option>
                 ))}
@@ -132,13 +132,13 @@ export function EditModal({ card, categories, isNew, onSave, onClose }: Props) {
             <label className="block text-xs font-medium text-text-secondary mb-1.5">Detay</label>
             <div className="border border-border rounded-lg overflow-hidden focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20">
               <div className="flex items-center gap-0.5 px-2 py-1.5 bg-surface-alt border-b border-border">
-                <button type="button" onClick={() => execCmd('bold')} className="p-1.5 rounded hover:bg-white text-text-secondary hover:text-text" title="Kalin">
+                <button type="button" onClick={() => execCmd('bold')} className="p-1.5 rounded hover:bg-white text-text-secondary hover:text-text" title="Kalın">
                   <Bold size={14} />
                 </button>
-                <button type="button" onClick={() => execCmd('italic')} className="p-1.5 rounded hover:bg-white text-text-secondary hover:text-text" title="Italik">
+                <button type="button" onClick={() => execCmd('italic')} className="p-1.5 rounded hover:bg-white text-text-secondary hover:text-text" title="İtalik">
                   <Italic size={14} />
                 </button>
-                <button type="button" onClick={() => execCmd('underline')} className="p-1.5 rounded hover:bg-white text-text-secondary hover:text-text" title="Alti Cizili">
+                <button type="button" onClick={() => execCmd('underline')} className="p-1.5 rounded hover:bg-white text-text-secondary hover:text-text" title="Altı Çizili">
                   <Underline size={14} />
                 </button>
                 <div className="w-px h-4 bg-border mx-1" />
@@ -168,7 +168,7 @@ export function EditModal({ card, categories, isNew, onSave, onClose }: Props) {
             onClick={onClose}
             className="px-4 py-2 text-sm font-medium text-text-secondary bg-surface-alt rounded-lg hover:bg-border transition-colors"
           >
-            Vazgec
+            Vazgeç
           </button>
           <button
             onClick={(e) => handleSubmit(e as unknown as React.FormEvent)}

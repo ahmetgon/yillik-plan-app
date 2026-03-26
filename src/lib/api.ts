@@ -22,7 +22,7 @@ function headers(token?: string | null): HeadersInit {
 
 async function handleRes<T>(res: Response): Promise<T> {
   if (!res.ok) {
-    const body = await res.json().catch(() => ({ error: 'Bir hata olustu.' }))
+    const body = await res.json().catch(() => ({ error: 'Bir hata oluştu.' }))
     throw new Error(body.error || `HTTP ${res.status}`)
   }
   return res.json()

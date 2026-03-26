@@ -28,7 +28,7 @@ export function LoginModal({ onLogin, error }: Props) {
           <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
             <LogIn size={28} className="text-primary" />
           </div>
-          <h1 className="text-xl font-bold text-text font-[family-name:var(--font-heading)]">Yillik Plan</h1>
+          <h1 className="text-xl font-bold text-text font-[family-name:var(--font-heading)]">Yıllık Plan</h1>
           <p className="text-sm text-text-secondary mt-1">Hesabınıza giriş yapın</p>
         </div>
 

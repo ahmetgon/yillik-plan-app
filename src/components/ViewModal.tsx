@@ -29,10 +29,10 @@ export function ViewModal({ card, category, canEdit, onClose, onEdit, onDelete }
 
   const actionLabel = (action: string) => {
     switch (action) {
-      case 'created': return 'olusturdu'
-      case 'updated': return 'guncelledi'
+      case 'created': return 'oluşturdu'
+      case 'updated': return 'güncelledi'
       case 'deleted': return 'sildi'
-      case 'moved': return 'tasidi'
+      case 'moved': return 'taşıdı'
       default: return action
     }
   }
@@ -74,7 +74,7 @@ export function ViewModal({ card, category, canEdit, onClose, onEdit, onDelete }
           )}
 
           {!card.description && (
-            <p className="text-sm text-text-muted italic">Detay eklenmemis.</p>
+            <p className="text-sm text-text-muted italic">Detay eklenmemiş.</p>
           )}
 
           {/* Activity Timeline */}
@@ -92,7 +92,7 @@ export function ViewModal({ card, category, canEdit, onClose, onEdit, onDelete }
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-text-secondary">
-                        <span className="font-medium text-text">{act.user_name || 'Kullanici'}</span>
+                        <span className="font-medium text-text">{act.user_name || 'Kullanıcı'}</span>
                         {' '}{actionLabel(act.action)}
                         {act.details && <span className="text-text-muted"> &mdash; {act.details}</span>}
                       </p>
@@ -112,7 +112,7 @@ export function ViewModal({ card, category, canEdit, onClose, onEdit, onDelete }
               onClick={onEdit}
               className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-primary bg-primary/5 rounded-lg hover:bg-primary/10 transition-colors"
             >
-              <Pencil size={13} /> Duzenle
+              <Pencil size={13} /> Düzenle
             </button>
             <button
               onClick={onDelete}
